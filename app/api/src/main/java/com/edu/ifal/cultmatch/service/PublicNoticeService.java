@@ -21,7 +21,7 @@ public class PublicNoticeService {
 
     public PublicNoticeResponseDTO create(PublicNoticeRequestDTO dto) {
         PublicNotice publicNotice = toEntity(dto);
-        publicNotice.setStatus(PublicNoticeStatus.ABERTO);
+        publicNotice.setStatus(PublicNoticeStatus.OPEN);
 
         PublicNotice savedPublicNotice = publicNoticeRepository.save(publicNotice);
         return toResponseDTO(savedPublicNotice);
@@ -35,7 +35,7 @@ public class PublicNoticeService {
                 fundingSphere,
                 city,
                 artisticArea,
-                PublicNoticeStatus.ABERTO);
+                PublicNoticeStatus.OPEN);
 
         return publicNotices.stream()
                 .map(this::toResponseDTO)
@@ -46,7 +46,7 @@ public class PublicNoticeService {
         PublicNotice publicNotice = publicNoticeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Public notice not found: " + id));
 
-        publicNotice.setStatus(PublicNoticeStatus.FECHADO);
+        publicNotice.setStatus(PublicNoticeStatus.CLOSED);
         publicNoticeRepository.save(publicNotice);
     }
 
